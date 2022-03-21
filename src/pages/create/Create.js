@@ -16,6 +16,7 @@ const Create = () => {
   const ingredientInput = useRef(null)
   const history = useHistory()
 
+  //creating a document
   const handleSubmit = async (e) => {
     e.preventDefault()
     const doc = {
