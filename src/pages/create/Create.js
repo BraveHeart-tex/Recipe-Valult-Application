@@ -1,48 +1,48 @@
-import { useState, useRef } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 //firebase
-import { projectFirestore } from '../../firebase/config'
+import { projectFirestore } from '../../firebase/config';
 
 // styles
-import './Create.css'
+import './Create.css';
 
 const Create = () => {
-  const [title, setTitle] = useState('')
-  const [method, setMethod] = useState('')
-  const [cookingTime, setCookingTime] = useState('')
-  const [newIngredient, setNewIngredient] = useState('')
-  const [ingredients, setIngredients] = useState([])
-  const ingredientInput = useRef(null)
-  const history = useHistory()
+  const [title, setTitle] = useState('');
+  const [method, setMethod] = useState('');
+  const [cookingTime, setCookingTime] = useState('');
+  const [newIngredient, setNewIngredient] = useState('');
+  const [ingredients, setIngredients] = useState([]);
+  const ingredientInput = useRef(null);
+  const navigate = useNavigate();
 
   //creating a document
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const doc = {
       title,
       ingredients,
       method,
       cookingTime: cookingTime + ' minutes',
-    }
+    };
     try {
-      await projectFirestore.collection('recipes').add(doc) //Add a new document to this collection with the specified data, assigning it a document ID automatically.
-      history.push('/') // redirect to the homepage
+      await projectFirestore.collection('recipes').add(doc); //Add a new document to this collection with the specified data, assigning it a document ID automatically.
+      navigate('/'); // redirect to the homepage
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
 
   const handleAdd = (e) => {
-    e.preventDefault()
-    const ing = newIngredient.trim()
+    e.preventDefault();
+    const ing = newIngredient.trim();
 
     if (ing && !ingredients.includes(ing)) {
-      setIngredients((prevIngredients) => [...prevIngredients, newIngredient])
+      setIngredients((prevIngredients) => [...prevIngredients, newIngredient]);
     }
-    setNewIngredient('')
-    ingredientInput.current.focus()
-  }
+    setNewIngredient('');
+    ingredientInput.current.focus();
+  };
 
   return (
     <div className="create">
@@ -102,7 +102,7 @@ const Create = () => {
         <button className="btn">Submit</button>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default Create
+export default Create;

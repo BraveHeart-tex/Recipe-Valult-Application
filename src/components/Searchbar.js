@@ -1,17 +1,17 @@
-import { useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 // styles
-import './Searchbar.css'
+import './Searchbar.css';
 
 const Searchbar = () => {
-  const [term, setTerm] = useState('')
-  const history = useHistory()
+  const [term, setTerm] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    history.push(`/search?q=${term}`)
-  }
+    navigate(`/search?q=${term}`);
+  };
 
   return (
     <div className="searchbar">
@@ -25,7 +25,7 @@ const Searchbar = () => {
         />
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default Searchbar
+export default Searchbar;
